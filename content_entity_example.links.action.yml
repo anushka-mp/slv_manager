@@ -1,0 +1,11 @@
+# All action links for this module
+
+slv_manager.voter_add:
+  # Which route will be called by the link
+  route_name: slv_manager.voter_add
+  title: 'Add Contact'
+
+  # Where will the link appear, defined by route name.
+  appears_on:
+    - entity.slv_manager_voter.collection
+    - entity.content_entity_example_contact.canonical
