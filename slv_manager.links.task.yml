@@ -1,0 +1,22 @@
+# Define the 'local' links for the module
+
+voter.settings_tab:
+  route_name: slv_manager.voter_settings
+  title: Settings
+  base_route: slv_manager.voter_settings
+
+voter.view:
+  route_name: entity.slv_manager_voter.canonical
+  base_route: entity.slv_manager_voter.canonical
+  title: View
+
+voter.page_edit:
+  route_name: entity.slv_manager_voter.edit_form
+  base_route: entity.slv_manager_voter.canonical
+  title: Edit
+
+voter.delete_confirm:
+  route_name:  entity.slv_manager_voter.delete_form
+  base_route:  entity.slv_manager_voter.canonical
+  title: Delete
+  weight: 10

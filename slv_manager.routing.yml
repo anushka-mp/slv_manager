@@ -1,0 +1,57 @@
+# This file brings everything together. Very nifty!
+
+# Route name can be used in sevaral place (links, redirects, local actions etc.)
+entity.slv_manager_voter.canonical:
+  path: '/slv_manager_voter/{slv_manager_voter}'
+  defaults:
+  # Calls the view controller, defined in the annotation of the voter entity
+    _entity_view: 'slv_manager_voter'
+    _title: 'Voter Content'
+  requirements:
+  # Calls the access controller of the entity, $operation 'view'
+    _entity_access: 'slv_manager_voter.view'
+
+entity.slv_manager_voter.collection:
+  path: '/slv_manager_voter/list'
+  defaults:
+  # Calls the list controller, defined in the annotation of the voter entity.
+    _entity_list: 'slv_manager_voter'
+    _title: 'Voter List'
+  requirements:
+  # Checks for permission directly.
+    _permission: 'view voter entity'
+
+slv_manager.voter_add:
+  path: '/slv_manager_voter/add'
+  defaults:
+  # Calls the form.add controller, defined in the voter entity.
+    _entity_form: slv_manager_voter.add
+    _title: 'Add Voter'
+  requirements:
+    _entity_create_access: 'slv_manager_voter'
+
+entity.slv_manager_voter.edit_form:
+  path: '/slv_manager_voter/{slv_manager_voter}/edit'
+  defaults:
+  # Calls the form.edit controller, defined in the voter entity.
+    _entity_form: slv_manager_voter.edit
+    _title: 'Edit Voter'
+  requirements:
+    _entity_access: 'slv_manager_voter.edit'
+
+entity.slv_manager_voter.delete_form:
+  path: '/voter/{slv_manager_voter}/delete'
+  defaults:
+    # Calls the form.delete controller, defined in the voter entity.
+    _entity_form: slv_manager_voter.delete
+    _title: 'Delete Voter'
+  requirements:
+    _entity_access: 'slv_manager_voter.delete'
+
+slv_manager.voter_settings:
+  path: 'admin/structure/slv_manager_voter_settings'
+  defaults:
+    _form: '\Drupal\slv_manager\Form\VoterSettingsForm'
+    _title: 'Voter Settings'
+  requirements:
+    _permission: 'administer voter entity'

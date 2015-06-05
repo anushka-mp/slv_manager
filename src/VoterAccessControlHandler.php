@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \Drupal\content_entity_example\ContactAccessControlHandler
+ * Contains \Drupal\slv_manager\VoterAccessControlHandler
  */
 
-namespace Drupal\content_entity_example;
+namespace Drupal\slv_manager;
 
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Entity\EntityAccessControlHandler;
@@ -17,7 +17,7 @@ use Drupal\Core\Session\AccountInterface;
  *
  * @see \Drupal\comment\Entity\Comment.
  */
-class ContactAccessControlHandler extends EntityAccessControlHandler {
+class VoterAccessControlHandler extends EntityAccessControlHandler {
 
   /**
    * {@inheritdoc}
@@ -28,13 +28,13 @@ class ContactAccessControlHandler extends EntityAccessControlHandler {
   protected function checkAccess(EntityInterface $entity, $operation, $langcode, AccountInterface $account) {
     switch ($operation) {
       case 'view':
-        return AccessResult::allowedIfHasPermission($account, 'view contact entity');
+        return AccessResult::allowedIfHasPermission($account, 'view voter entity');
 
       case 'edit':
-        return AccessResult::allowedIfHasPermission($account, 'edit contact entity');
+        return AccessResult::allowedIfHasPermission($account, 'edit voter entity');
 
       case 'delete':
-        return AccessResult::allowedIfHasPermission($account, 'delete contact entity');
+        return AccessResult::allowedIfHasPermission($account, 'delete voter entity');
     }
     return AccessResult::allowed();
   }
@@ -46,7 +46,7 @@ class ContactAccessControlHandler extends EntityAccessControlHandler {
    * will be created during the 'add' process.
    */
   protected function checkCreateAccess(AccountInterface $account, array $context, $entity_bundle = NULL) {
-    return AccessResult::allowedIfHasPermission($account, 'add contact entity');
+    return AccessResult::allowedIfHasPermission($account, 'add voter entity');
   }
 
 }

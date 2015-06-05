@@ -28,7 +28,7 @@ class VoterDeleteForm extends ContentEntityConfirmFormBase {
   /**
    * {@inheritdoc}
    *
-   * If the delete command is canceled, return to the contact list.
+   * If the delete command is canceled, return to the voters list.
    */
   public function getCancelURL() {
     return new Url('entity.slv_manager_voter.collection');

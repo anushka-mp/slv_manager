@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.slv_manager_voter.polling_booth
+id: slv_manager_voter.slv_manager_voter.polling_booth
+field_name: polling_booth
+entity_type: slv_manager_voter
+bundle: slv_manager_voter
+label: 'Polling Booth'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,10 +1,10 @@
 <?php
 /**
  * @file
- * Contains \Drupal\content_entity_example\ContactInterface.
+ * Contains \Drupal\content_entity_example\VoterInterface.
  */
 
-namespace Drupal\content_entity_example;
+namespace Drupal\slv_manager;
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\user\EntityOwnerInterface;
@@ -13,6 +13,6 @@ use Drupal\user\EntityOwnerInterface;
  * Provides an interface defining a Contact entity.
  * @ingroup content_entity_example
  */
-interface ContactInterface extends ContentEntityInterface, EntityOwnerInterface {
+interface VoterInterface extends ContentEntityInterface, EntityOwnerInterface {
 
 }
