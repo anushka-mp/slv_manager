@@ -1,0 +1,18 @@
+uuid: 9645a978-bbb7-4b5a-a600-a40e7489e5a9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.slv_manager_voter.role
+id: slv_manager_voter.slv_manager_voter.role
+field_name: role
+entity_type: slv_manager_voter
+bundle: slv_manager_voter
+label: Role
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

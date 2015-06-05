@@ -4,9 +4,9 @@
 entity.slv_manager_voter.canonical:
   path: '/slv_manager_voter/{slv_manager_voter}'
   defaults:
-  # Calls the view controller, defined in the annotation of the contact entity
+  # Calls the view controller, defined in the annotation of the voter entity
     _entity_view: 'slv_manager_voter'
-    _title: 'Contact Content'
+    _title: 'Voter Content'
   requirements:
   # Calls the access controller of the entity, $operation 'view'
     _entity_access: 'slv_manager_voter.view'
@@ -14,44 +14,44 @@ entity.slv_manager_voter.canonical:
 entity.slv_manager_voter.collection:
   path: '/slv_manager_voter/list'
   defaults:
-  # Calls the list controller, defined in the annotation of the contact entity.
+  # Calls the list controller, defined in the annotation of the voter entity.
     _entity_list: 'slv_manager_voter'
-    _title: 'Contact List'
+    _title: 'Voter List'
   requirements:
   # Checks for permission directly.
-    _permission: 'view contact entity'
+    _permission: 'view voter entity'
 
 slv_manager.voter_add:
   path: '/slv_manager_voter/add'
   defaults:
-  # Calls the form.add controller, defined in the contact entity.
+  # Calls the form.add controller, defined in the voter entity.
     _entity_form: slv_manager_voter.add
-    _title: 'Add Contact'
+    _title: 'Add Voter'
   requirements:
     _entity_create_access: 'slv_manager_voter'
 
 entity.slv_manager_voter.edit_form:
   path: '/slv_manager_voter/{slv_manager_voter}/edit'
   defaults:
-  # Calls the form.edit controller, defined in the contact entity.
+  # Calls the form.edit controller, defined in the voter entity.
     _entity_form: slv_manager_voter.edit
-    _title: 'Edit Contact'
+    _title: 'Edit Voter'
   requirements:
     _entity_access: 'slv_manager_voter.edit'
 
 entity.slv_manager_voter.delete_form:
-  path: '/contact/{slv_manager_voter}/delete'
+  path: '/voter/{slv_manager_voter}/delete'
   defaults:
-    # Calls the form.delete controller, defined in the contact entity.
+    # Calls the form.delete controller, defined in the voter entity.
     _entity_form: slv_manager_voter.delete
-    _title: 'Delete Contact'
+    _title: 'Delete Voter'
   requirements:
     _entity_access: 'slv_manager_voter.delete'
 
 slv_manager.voter_settings:
   path: 'admin/structure/slv_manager_voter_settings'
   defaults:
-    _form: '\Drupal\slv_manager\Form\ContactSettingsForm'
-    _title: 'Contact Settings'
+    _form: '\Drupal\slv_manager\Form\VoterSettingsForm'
+    _title: 'Voter Settings'
   requirements:
-    _permission: 'administer contact entity'
+    _permission: 'administer voter entity'

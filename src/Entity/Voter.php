@@ -233,8 +233,8 @@ class Voter extends ContentEntityBase implements VoterInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-    $fields['first_name'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('First Name'))
+    $fields['nic'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('NIC Number'))
       ->setDescription(t('The first name of the Voter entity.'))
       ->setSettings(array(
         'default_value' => '',

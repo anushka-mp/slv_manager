@@ -6,6 +6,10 @@ description: 'Provides voter entity and manager.'
 dependencies:
   - options
   - entity_reference
+  - node
+  - field
+  - options
+  - views
 
 # Information added by Drupal.org packaging script on 2015-05-22
 version: '8.x-1.x-dev'

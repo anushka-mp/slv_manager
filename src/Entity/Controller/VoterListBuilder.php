@@ -16,7 +16,7 @@ use Drupal\Core\Url;
  *
  * @ingroup slv_manager
  */
-class SlvManagerListBuilder extends EntityListBuilder {
+class VoterListBuilder extends EntityListBuilder {
 
   /**
    * {@inheritdoc}
@@ -27,7 +27,7 @@ class SlvManagerListBuilder extends EntityListBuilder {
    */
   public function render() {
     $build['description'] = array(
-      '#markup' => $this->t('Voters details view <a href="@adminlink">Contacts admin page</a>.', array(
+      '#markup' => $this->t('Voters details view <a href="@adminlink">Voters admin page</a>.', array(
         '@adminlink' => \Drupal::urlGenerator()->generateFromRoute('slv_manager.voter_settings'),
       )),
     );
@@ -44,10 +44,14 @@ class SlvManagerListBuilder extends EntityListBuilder {
    * and inserts the 'edit' and 'delete' links as defined for the entity type.
    */
   public function buildHeader() {
-    $header['id'] = $this->t('ContactID');
+    $header['id'] = $this->t('ID');
     $header['name'] = $this->t('Name');
-    $header['first_name'] = $this->t('NIC');
+    $header['nic'] = $this->t('NIC');
     $header['gender'] = $this->t('Gender');
+    $header['address'] = $this->t('Address');
+    $header['district'] = $this->t('District');
+    $header['polling_booth'] = $this->t('Polling booth');
+    $header['role'] = $this->t('Role');
     return $header + parent::buildHeader();
   }
 
@@ -58,8 +62,12 @@ class SlvManagerListBuilder extends EntityListBuilder {
     /* @var $entity \Drupal\slv_manager\Entity\Voter */
     $row['id'] = $entity->id();
     $row['name'] = $entity->link();
-    $row['first_name'] = $entity->first_name->value;
+    $row['nic'] = $entity->nic->value;
     $row['gender'] = $entity->gender->value;
+    $row['address'] = $entity->address->value;
+    $row['district'] = $entity->address->value;
+    $row['polling_booth'] = $entity->address->value;
+    $row['role'] = $entity->address->value;
     return $row + parent::buildRow($entity);
   }
 
