@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Contains Drupal\slv_manager\Form\ContactForm.
+ * Contains Drupal\slv_manager\Form\VoterForm.
  */
 
 namespace Drupal\slv_manager\Form;
@@ -38,7 +38,7 @@ class VoterForm extends ContentEntityForm {
    * {@inheritdoc}
    */
   public function save(array $form, FormStateInterface $form_state) {
-    $form_state->setRedirect('entity.content_entity_example_voter.collection');
+    $form_state->setRedirect('entity.slv_manager_voter.collection');
     $entity = $this->getEntity();
     $entity->save();
   }

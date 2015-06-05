@@ -14,7 +14,7 @@ use Drupal\Core\Form\FormStateInterface;
  * @package Drupal\slv_manager\Form
  * @ingroup slv_manager
  */
-class ContactSettingsForm extends FormBase {
+class VoterSettingsForm extends FormBase {
   /**
    * Returns a unique string identifying the form.
    *
@@ -49,7 +49,7 @@ class ContactSettingsForm extends FormBase {
    *   An associative array containing the current state of the form.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['contact_settings']['#markup'] = 'Settings form for ContentEntityExample. Manage field settings here.';
+    $form['contact_settings']['#markup'] = 'Settings form for Voter entity. Manage field settings here.';
     return $form;
   }
 }
