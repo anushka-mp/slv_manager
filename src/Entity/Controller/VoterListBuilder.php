@@ -65,9 +65,9 @@ class VoterListBuilder extends EntityListBuilder {
     $row['nic'] = $entity->nic->value;
     $row['gender'] = $entity->gender->value;
     $row['address'] = $entity->address->value;
-    $row['district'] = $entity->address->value;
-    $row['polling_booth'] = $entity->address->value;
-    $row['role'] = $entity->address->value;
+    $row['district'] = $entity->district->value;
+    $row['polling_booth'] = $entity->polling_booth->value;
+    $row['role'] = $entity->role->value;
     return $row + parent::buildRow($entity);
   }
 
