@@ -2,32 +2,52 @@
 
 /**
  * @file
- * Contains Drupal\content_entity_example\content_entity_example.module
  */
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\Core\Url;
+use Drupal\user\UserInterface;
 
-/**
- * @defgroup content_entity_example Example: Content Entity
- * @ingroup examples
- * @{
- * Implement a Content entity.
- *
- * This module demonstrates implementing a Content Entity.
- *
- * This is an example of a fieldable content entity used to hold structured
- * information without the overhead of using a content type. It is defined
- * programmatically and we will expose the main techniques to handle and expose
- * the contents.
- *
- * We define a content entity named 'Contact'. With it, we demonstrate the main
- * tasks for an entity:
- * - define
- * - save
- * - load
- * - view
- * - edit
- * - delete
- * - control access
- *
- * Where ever possible, we use the amazing tools built into D8 natively.
- * }
- */
+function slv_manager_user_login(UserInterface $account) {
+  // We want to redirect user on login.
+  // Check if the first login or not.
+  $entity = getUser($account->get('field_nic_number')->getValue()[0]);
+  if($account->getLastAccessedTime() == 0){
+//    $response = new RedirectResponse(Url::fromRoute('slv_manager.voter_details')->toString(), 302);
+//    $response->send();
+   return ;
+  }
+  //@todo check the voters and other roles separately
+  else{
+    if(!$account->hasRole('voter')){
+      $account->addRole('voter');
+      $account->save();
+    }
+    if (!empty($entity)) {
+      addUser($account->id() , $entity->id());
+      $response = new RedirectResponse(Url::fromRoute('slv_manager.voter_details', array('slv_manager_voter' => $entity->id()))
+        ->toString(), 302);
+      $response->send();
+    }
+  }
+  return ;
+}
+
+function getUser($nic){
+  $entities = entity_load_multiple_by_properties('slv_manager_voter', array('nic' => $nic['value']));
+  return reset($entities);
+}
+
+function addUser($uid, $voter_id){
+  /* @var $voter \Drupal\slv_manager\Entity\Voter */
+  $voter = entity_load('slv_manager_voter', $voter_id);
+  $voter->set('user_id', $uid);
+  $voter->save();
+}
+
+function slv_manager_form_user_profile_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  $form['simplenews']['subscriptions'] = array(
+    '#type' => 'checkboxes',
+    '#options' => '',
+    '#default_value' => 'aa',
+  );
+}

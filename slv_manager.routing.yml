@@ -19,7 +19,7 @@ entity.slv_manager_voter.collection:
     _title: 'Voter List'
   requirements:
   # Checks for permission directly.
-    _permission: 'view voter entity'
+    _permission: 'administer voter entity'
 
 slv_manager.voter_add:
   path: '/slv_manager_voter/add'
@@ -55,3 +55,13 @@ slv_manager.voter_settings:
     _title: 'Voter Settings'
   requirements:
     _permission: 'administer voter entity'
+
+slv_manager.voter_details:
+  path: '/slv_manager_voter/{slv_manager_voter}/details'
+  defaults:
+    _entity_form: 'slv_manager_voter.details'
+    _title: 'Your Details'
+  requirements:
+    _permission: 'view voter entity'
+
+

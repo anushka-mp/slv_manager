@@ -5,8 +5,15 @@ entity.slv_manager_voter.collection:
   route_name: entity.slv_manager_voter.collection
   description: 'List Voters'
   weight: 10
+
 slv_manager_voter.admin.structure.settings:
   title: Voter Settings
   description: 'Configure voter entity'
   route_name:  slv_manager.voter_settings
   parent: system.admin_structure
+
+slv_manager_voter.details:
+  title: 'SL Voter Manager: Your Details'
+  route_name: slv_manager.voter_details
+  description: 'Your Details'
+  weight: 10
