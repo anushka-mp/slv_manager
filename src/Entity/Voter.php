@@ -77,6 +77,7 @@ use Drupal\user\UserInterface;
  *   label = @Translation("Voter entity"),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
+ *      "views_data" = "Drupal\slv_manager\VoterViewsData",
  *     "list_builder" = "Drupal\slv_manager\Entity\Controller\VoterListBuilder",
  *     "form" = {
  *      "details" = "Drupal\slv_manager\Form\VoterDetailsForm",

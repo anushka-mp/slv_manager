@@ -18,6 +18,7 @@ function slv_manager_user_login(UserInterface $account) {
       $account->save();
     }
     if ($account->getLastAccessedTime() == 0) {
+      addUser($account->id(), $entity->id());
       $response = new RedirectResponse(Url::fromRoute('slv_manager.voter_welcome')
         ->toString(), 302);
       $response->send();
@@ -26,7 +27,7 @@ function slv_manager_user_login(UserInterface $account) {
     //@todo check the voters and other roles separately
     else {
       if (!empty($entity)) {
-        addUser($account->id(), $entity->id());
+
         $response = new RedirectResponse(Url::fromRoute('slv_manager.voter_details', array('slv_manager_voter' => $entity->id()))
           ->toString(), 302);
         $response->send();
