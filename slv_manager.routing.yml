@@ -64,4 +64,18 @@ slv_manager.voter_details:
   requirements:
     _permission: 'view voter entity'
 
+slv_manager.voter_welcome:
+  path:  '/slv_manager_voter/welcome'
+  defaults:
+    _form: '\Drupal\slv_manager\Form\WelcomeForm'
+    _title: 'Welcome'
+  requirements:
+    _permission: 'view voter entity'
 
+slv_manager.voter_district_details:
+  path: '/slv_manager_voter/{slv_manager_voter}/{district}/details'
+  defaults:
+    _entity_list: 'slv_manager_voter'
+    _title: 'Voter List'
+  requirements:
+    _permission: 'view voter entity'

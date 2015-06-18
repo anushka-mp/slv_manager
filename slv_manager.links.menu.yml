@@ -12,8 +12,4 @@ slv_manager_voter.admin.structure.settings:
   route_name:  slv_manager.voter_settings
   parent: system.admin_structure
 
-slv_manager_voter.details:
-  title: 'SL Voter Manager: Your Details'
-  route_name: slv_manager.voter_details
-  description: 'Your Details'
-  weight: 10
+
