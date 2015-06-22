@@ -36,7 +36,7 @@ class WelcomeForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $uid = $this->currentUser()->id();
     $user = User::load($uid);
-    $voter = getVoter($user->get('field_nic_number')->getValue()[0]);
+    $voter = slv_manager_load_voter_by_nic($user->get('field_nic_number')->getValue()[0]);
     if($user->hasRole('manager')){
       $form_state->setRedirect('slv_manager.voter_district_details', array('district' => $voter->get('district')->getValue()[0]['value']));
 

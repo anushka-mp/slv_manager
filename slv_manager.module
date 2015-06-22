@@ -6,12 +6,14 @@
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\Core\Url;
 use Drupal\user\UserInterface;
+use Drupal\views\ViewExecutable;
+use Drupal\views\Plugin\views\query\QueryPluginBase;
 
 function slv_manager_user_login(UserInterface $account) {
   // We want to redirect user on login.
   // Check if the first login or not.
   if(!$account->hasPermission('administer voter entity')) {
-    $entity = getVoter($account->get('field_nic_number')->getValue()[0]);
+    $entity = slv_manager_load_voter_by_nic($account->get('field_nic_number')->getValue()[0]);
     $role = $entity->get('role')->getValue()[0]['value'];
     if (!$account->hasRole($role)) {
       $account->addRole($role);
@@ -27,7 +29,7 @@ function slv_manager_user_login(UserInterface $account) {
     //@todo check the voters and other roles separately
     else {
       if (!empty($entity)) {
-
+        slv_manager_add_user($account->id(), $entity->id());
         $response = new RedirectResponse(Url::fromRoute('slv_manager.voter_details', array('slv_manager_voter' => $entity->id()))
           ->toString(), 302);
         $response->send();
@@ -37,22 +39,51 @@ function slv_manager_user_login(UserInterface $account) {
   }
 }
 
-function getVoter($nic){
+function slv_manager_load_voter_by_nic($nic){
   $entities = entity_load_multiple_by_properties('slv_manager_voter', array('nic' => $nic['value']));
   return reset($entities);
 }
 
-function addUser($uid, $voter_id){
+function slv_manager_get_polling_booth($uid){
+  $entities = entity_load_multiple_by_properties('slv_manager_voter', array('nic' => $uid['user_id']));
+  $entity = reset($entities);
+  $pollingBooth = $entity->get('polling_booth')->getValue()[0]['value'];
+  return $pollingBooth;
+}
+
+function slv_manager_get_district($uid){
+  $entities = entity_load_multiple_by_properties('slv_manager_voter', array('nic' => $uid['user_id']));
+  $entity = reset($entities);
+  $district = $entity->get('district')->getValue()[0]['value'];
+  return $district;
+}
+
+function slv_manager_add_user($uid, $voter_id){
   /* @var $voter \Drupal\slv_manager\Entity\Voter */
   $voter = entity_load('slv_manager_voter', $voter_id);
   $voter->set('user_id', $uid);
   $voter->save();
+
 }
 
-function slv_manager_form_user_profile_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
-  $form['simplenews']['subscriptions'] = array(
-    '#type' => 'checkboxes',
-    '#options' => '',
-    '#default_value' => 'aa',
-  );
-}
+//function slv_manager_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
+//  // (Example assuming a view with an exposed filter on node title.)
+//  // If the input for the title filter is a positive integer, filter against
+//  // node ID instead of node title.
+//  if ($view->id() == 'my_view' && is_numeric($view->exposed_raw_input ['title']) && $view->exposed_raw_input ['title'] > 0) {
+//    // Traverse through the 'where' part of the query.
+//    foreach ($query->where as &$condition_group) {
+//      foreach ($condition_group ['conditions'] as &$condition) {
+//        // If this is the part of the query filtering on title, chang the
+//        // condition to filter on node ID.
+//        if ($condition ['field'] == 'node.title') {
+//          $condition = array(
+//            'field' => 'node.nid',
+//            'value' => $view->exposed_raw_input ['title'],
+//            'operator' => '=',
+//          );
+//        }
+//      }
+//    }
+//  }
+//}
