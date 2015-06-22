@@ -10,6 +10,7 @@ namespace Drupal\slv_manager\Entity\Controller;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
 use Drupal\Core\Url;
+use Drupal\user\Entity\User;
 
 /**
  * Provides a list controller for Voter entity.
@@ -60,14 +61,15 @@ class VoterListBuilder extends EntityListBuilder {
    */
   public function buildRow(EntityInterface $entity) {
     /* @var $entity \Drupal\slv_manager\Entity\Voter */
-    $row['id'] = $entity->id();
-    $row['name'] = $entity->link();
-    $row['nic'] = $entity->nic->value;
-    $row['gender'] = $entity->gender->value;
-    $row['address'] = $entity->address->value;
-    $row['district'] = $entity->district->value;
-    $row['polling_booth'] = $entity->polling_booth->value;
-    $row['role'] = $entity->role->value;
+
+      $row['id'] = $entity->id();
+      $row['name'] = $entity->link();
+      $row['nic'] = $entity->nic->value;
+      $row['gender'] = $entity->gender->value;
+      $row['address'] = $entity->address->value;
+      $row['district'] = $entity->district->value;
+      $row['polling_booth'] = $entity->polling_booth->value;
+      $row['role'] = $entity->role->value;
     return $row + parent::buildRow($entity);
   }
 
