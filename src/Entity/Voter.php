@@ -79,6 +79,7 @@ use Drupal\user\UserInterface;
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\slv_manager\Entity\Controller\VoterListBuilder",
  *     "form" = {
+ *      "details" = "Drupal\slv_manager\Form\VoterDetailsForm",
  *       "add" = "Drupal\slv_manager\Form\VoterForm",
  *       "edit" = "Drupal\slv_manager\Form\VoterForm",
  *       "delete" = "Drupal\slv_manager\Form\VoterDeleteForm",
