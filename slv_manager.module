@@ -29,11 +29,21 @@ function slv_manager_user_login(UserInterface $account) {
     //@todo check the voters and other roles separately
     else {
       if (!empty($entity)) {
-        //slv_manager_add_user($account->id(), $entity->id());
-        $response = new RedirectResponse(Url::fromRoute('slv_manager.voter_details', array('slv_manager_voter' => $entity->id()))
-          ->toString(), 302);
+        if($account->hasRole('agent')) {
+          $response = new RedirectResponse(Url::fromRoute('slv_manager.voter_polling_booth_details', array('slv_manager_voter' => $entity->id()))
+            ->toString(), 302);
+        }
+        if($account->hasRole('manager')) {
+          $response = new RedirectResponse(Url::fromRoute('slv_manager.voter_district_details')
+            ->toString(), 302);
+        }
+        else {
+          $response = new RedirectResponse(Url::fromRoute('slv_manager.voter_details', array('slv_manager_voter' => $entity->id()))
+            ->toString(), 302);
+        }
         $response->send();
       }
+
     }
     return;
   }
@@ -76,7 +86,12 @@ function slv_manager_views_query_alter(ViewExecutable $view, QueryPluginBase $qu
       foreach ($condition_group ['conditions'] as &$condition) {
         // If this is the part of the query filtering on title, chang the
         // condition to filter on node ID.
-        if ($condition ['field'] == 'slv_manager_voter__polling_booth.polling_booth_value') {
+        $current_user = Drupal::currentUser();
+        $roles = $current_user->getRoles();
+        if(in_array('manager', $roles)){
+
+        }
+        elseif ($condition ['field'] == 'slv_manager_voter__polling_booth.polling_booth_value') {
           $condition = array(
             'field' => 'slv_manager_voter__polling_booth.polling_booth_value',
             'value' => slv_manager_get_polling_booth(Drupal::currentUser()->id()),

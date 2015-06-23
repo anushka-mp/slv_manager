@@ -37,8 +37,12 @@ class WelcomeForm extends FormBase {
     $uid = $this->currentUser()->id();
     $user = User::load($uid);
     $voter = slv_manager_load_voter_by_nic($user->get('field_nic_number')->getValue()[0]);
+    if($user->hasRole('agent')){
+      $form_state->setRedirect('slv_manager.voter_polling_booth_details', array('polling_booth' => $voter->get('polling_booth')->getValue()[0]['value']));
+
+    }
     if($user->hasRole('manager')){
-      $form_state->setRedirect('slv_manager.voter_district_details', array('district' => $voter->get('polling_booth')->getValue()[0]['value']));
+      $form_state->setRedirect('slv_manager.voter_district_details');
 
     }
     else {
@@ -75,6 +79,10 @@ class WelcomeForm extends FormBase {
       '#value' => t('My Details'),
     );
     $roles = $this->currentUser()->getRoles();
+
+    if(in_array('agent', $roles)){
+      $form['submit']['#value'] = t('My polling booth');
+    }
 
     if(in_array('manager', $roles)){
       $form['submit']['#value'] = t('My District');
