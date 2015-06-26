@@ -30,10 +30,10 @@ function slv_manager_user_login(UserInterface $account) {
     else {
       if (!empty($entity)) {
         if($account->hasRole('agent')) {
-          $response = new RedirectResponse(Url::fromRoute('slv_manager.voter_polling_booth_details', array('slv_manager_voter' => $entity->id()))
+          $response = new RedirectResponse(Url::fromRoute('slv_manager.voter_polling_booth_details', array('polling_booth' => $entity->get('polling_booth')->getValue()[0]['value']))
             ->toString(), 302);
         }
-        if($account->hasRole('manager')) {
+        elseif($account->hasRole('manager')) {
           $response = new RedirectResponse(Url::fromRoute('slv_manager.voter_district_details')
             ->toString(), 302);
         }
@@ -81,13 +81,14 @@ function slv_manager_views_query_alter(ViewExecutable $view, QueryPluginBase $qu
   // If the input for the title filter is a positive integer, filter against
   // node ID instead of node title.
   if ($view->id() == 'voter_view') {
+    $current_user = Drupal::currentUser();
+    $roles = $current_user->getRoles();
     // Traverse through the 'where' part of the query.
     foreach ($query->where as &$condition_group) {
       foreach ($condition_group ['conditions'] as &$condition) {
         // If this is the part of the query filtering on title, chang the
         // condition to filter on node ID.
-        $current_user = Drupal::currentUser();
-        $roles = $current_user->getRoles();
+
         if(in_array('manager', $roles)){
 
         }
@@ -100,5 +101,25 @@ function slv_manager_views_query_alter(ViewExecutable $view, QueryPluginBase $qu
         }
       }
     }
+  }
+  if ($view->id() == 'polling_agents') {
+    // If this is the part of the query filtering on title, chang the
+    // condition to filter on node ID.
+    $current_user = Drupal::currentUser();
+    $roles = $current_user->getRoles();
+    if (in_array('manager', $roles)){
+    foreach ($query->where as &$condition_group) {
+      foreach ($condition_group ['conditions'] as &$condition) {
+        if ($condition ['field'] == 'slv_manager_voter__polling_booth.polling_booth_value') {
+          $condition = array(
+            'field' => 'slv_manager_voter__polling_booth.polling_booth_value',
+            'value' => slv_manager_get_district(Drupal::currentUser()->id()),
+            'operator' => '=',
+          );
+        }
+      }
+      }
+    }
+
   }
 }
