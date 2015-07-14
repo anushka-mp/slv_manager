@@ -89,13 +89,14 @@ function slv_manager_views_query_alter(ViewExecutable $view, QueryPluginBase $qu
         // If this is the part of the query filtering on title, chang the
         // condition to filter on node ID.
 
-        if(in_array('manager', $roles)){
+        if (in_array('manager', $roles)) {
 
         }
         elseif ($condition ['field'] == 'slv_manager_voter__polling_booth.polling_booth_value') {
           $condition = array(
             'field' => 'slv_manager_voter__polling_booth.polling_booth_value',
-            'value' => slv_manager_get_polling_booth(Drupal::currentUser()->id()),
+            'value' => slv_manager_get_polling_booth(Drupal::currentUser()
+              ->id()),
             'operator' => '=',
           );
         }
@@ -107,19 +108,18 @@ function slv_manager_views_query_alter(ViewExecutable $view, QueryPluginBase $qu
     // condition to filter on node ID.
     $current_user = Drupal::currentUser();
     $roles = $current_user->getRoles();
-    if (in_array('manager', $roles)){
-    foreach ($query->where as &$condition_group) {
-      foreach ($condition_group ['conditions'] as &$condition) {
-        if ($condition ['field'] == 'slv_manager_voter__polling_booth.polling_booth_value') {
-          $condition = array(
-            'field' => 'slv_manager_voter__polling_booth.polling_booth_value',
-            'value' => slv_manager_get_district(Drupal::currentUser()->id()),
-            'operator' => '=',
-          );
-        }
-      }
-      }
+    if (in_array('manager', $roles)) {
+      //$spooled = db_query('SELECT COUNT(*) FROM {simplenews_mail_spool} WHERE entity_id = :nid AND entity_type = :type', array(':nid' => $node->id(), ':type' => 'node'))->fetchField();
+     // foreach ($query->where as &$condition_group) {
+//        $query->where[1]['conditions'][1] += array(
+//          'field' => 'slv_manager_voter__district.district_value',
+//          'value' => slv_manager_get_district(Drupal::currentUser()->id()),
+//          'operator' => '=',
+//        );
+//return $query;
+      //}
     }
-
   }
+
+
 }

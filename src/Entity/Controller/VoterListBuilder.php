@@ -53,6 +53,7 @@ class VoterListBuilder extends EntityListBuilder {
     $header['district'] = $this->t('District');
     $header['polling_booth'] = $this->t('Polling booth');
     $header['role'] = $this->t('Role');
+    $header['electorate'] = $this->t('electorate');
     return $header + parent::buildHeader();
   }
 
@@ -70,6 +71,7 @@ class VoterListBuilder extends EntityListBuilder {
       $row['district'] = $entity->district->value;
       $row['polling_booth'] = $entity->polling_booth->value;
       $row['role'] = $entity->role->value;
+      $row['electorate'] = $entity->field_electorate->value;
     return $row + parent::buildRow($entity);
   }
 
