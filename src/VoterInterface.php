@@ -11,7 +11,7 @@ use Drupal\user\EntityOwnerInterface;
 
 /**
  * Provides an interface defining a Contact entity.
- * @ingroup content_entity_example
+ * @ingroup slv_manager
  */
 interface VoterInterface extends ContentEntityInterface, EntityOwnerInterface {
 

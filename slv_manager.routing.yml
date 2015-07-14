@@ -72,9 +72,16 @@ slv_manager.voter_welcome:
   requirements:
     _permission: 'view voter entity'
 
-slv_manager.voter_district_details:
-  path: '/slv_manager/voter_view/{district}/'
+slv_manager.voter_polling_booth_details:
+  path: '/slv_manager/polling_agent/voter_view/{polling_booth}/'
   defaults:
     _title: 'Voter List'
+  requirements:
+    _permission: 'view voter entity'
+
+slv_manager.voter_district_details:
+  path: '/slv_manager/polling_agents'
+  defaults:
+    _title: 'Agents List'
   requirements:
     _permission: 'view voter entity'
